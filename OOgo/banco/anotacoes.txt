@@ -1,0 +1,273 @@
+package main
+
+
+func main() {
+//titular2 := "Davi"
+
+	var titular string = "Davi"
+	var numeroAgencia int = 123
+	var numeroConta int = 99999
+	var saldo float64 = 150.50
+
+	fmt.Println(titular, numeroAgencia, numeroConta, saldo)
+
+	var titular2 string = "Luciene"
+	var numeroAgencia2 int = 321
+	var numeroConta2 int = 8888
+	var saldo2 float64 = 200.50
+
+	fmt.Println(titular2, numeroAgencia2, numeroConta2, saldo2)
+}
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+package main
+
+import "fmt"
+
+type ContaCorrente struct {
+	titular       string
+	numeroAgencia int
+	numeroConta   int
+	saldo         float64
+}
+
+func main() {
+
+	fmt.Println(ContaCorrente{})
+}
+
+/*
+
+Apesar de não termos inserido nenhum valor, os elementos ganham automaticamente um valor inicial.
+ Esse valor é chamado de zero value ou inicialização zero. Então, pro que for string, será adicionado
+ um vazio. Para o que for um inteiro ou do tipo float, será atribuído um "0".
+
+*/
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+package main
+
+import "fmt"
+
+type ContaCorrente struct {
+	titular       string
+	numeroAgencia int
+	numeroConta   int
+	saldo         float64
+}
+
+func main() {
+
+	var contaDoDavi ContaCorrente = ContaCorrente{}
+	contaDoTiti := ContaCorrente{}
+	contaDoMicael := ContaCorrente{titular: "Micael", numeroAgencia: 123, numeroConta: 12345, saldo: 500.50}
+	contaDoZeca := ContaCorrente{"Zeca", 333, 55555, 100.50}
+
+	fmt.Println(contaDoDavi)
+	fmt.Println(contaDoTiti)
+	fmt.Println(contaDoMicael)
+	fmt.Println(contaDoZeca)
+}
+
+/*
+
+Apesar de não termos inserido nenhum valor, os elementos ganham automaticamente um valor inicial.
+ Esse valor é chamado de zero value ou inicialização zero. Então, pro que for string, será adicionado
+ um vazio. Para o que for um inteiro ou do tipo float, será atribuído um "0".
+
+ Inicialização zero e nil
+Mesmo não provendo nenhum valor, o Go garante inicializar todas as variáveis, conforme a imagem abaixo:
+
+bool false
+int 0
+float 0
+string ""
+struct {}
+
+Nil e Inferência
+Observe o seguinte exemplo:
+
+
+package main
+
+import (
+    "fmt"
+)
+
+func main() {
+    a := nil
+    fmt.Println(a)
+}
+
+
+Será que vai compilar?
+
+Não, não vai. O compilador imprimirá o seguinte erro: use of untyped nil, que significa uso não tipado do nil.
+
+
+
+Nil com um tipo definido
+Sabendo disso, observe o exemplo abaixo onde apontamos para um tipo definido:
+
+package main
+
+import (
+    "fmt"
+)
+
+func main() {
+    var s *string = nil
+    fmt.Println(s)
+}
+Neste caso, o programa compila e retorna <nil> como esperado.
+
+*/
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+package main
+
+import "fmt"
+
+type ContaCorrente struct {
+	titular       string
+	numeroAgencia int
+	numeroConta   int
+	saldo         float64
+}
+
+func main() {
+
+	var contaDoDavi ContaCorrente = ContaCorrente{}
+	contaDoTiti := ContaCorrente{}
+	contaDoMicael := ContaCorrente{titular: "Micael", numeroAgencia: 123, numeroConta: 12345, saldo: 500.50}
+	contaDoZeca := ContaCorrente{"Zeca", 333, 55555, 100.50}
+
+	fmt.Println(contaDoDavi)
+	fmt.Println(contaDoTiti)
+	fmt.Println(contaDoMicael)
+	fmt.Println(contaDoZeca)
+
+	fmt.Println()
+	fmt.Println("------------------------COMO JAVA E C++ -------------------------------")
+	fmt.Println()
+
+	var contaDoVinicius *ContaCorrente
+	contaDoVinicius = new(ContaCorrente)
+	contaDoVinicius.titular = "Vinicius"
+	contaDoVinicius.saldo = 50000
+
+	fmt.Println(contaDoVinicius)
+	fmt.Println(*contaDoVinicius)
+
+}
+
+
+Vimos duas formas de utilizar a struct, a primeira passando o campo e o valor que queremos armazenar dentro dessas variáveis e a segunda passando o conteúdo 
+sem especificar os campos, desde que eles estejam na ordem em que foram declarados.
+Será que só existem essas formas de utilizar a struct? Não, há a opção de usá-la de forma similar a outras 
+linguagens de programação como Java e C#. Aprenderemos como.
+
+Nosso primeiro passo será declarar uma variável chamada contaDaCris. Ela será do tipo ContaCorrente. Na linha seguinte, faremos contaDaCris = new(). 
+A palavra new é bastante conhecida de quem já programa em Java ou C#. Dentro dos parênteses passaremos o tipo, que é ContaCorrente.
+
+A partir de então, conseguiremos atribuir os valores acrescentando um ponto (.) após contaDaCris e o nome do campo na sequência. 
+Então atribuiremos o valor desse campo.
+
+Teclaremos "Command + J" para abrir o terminal e "Ctrl + L" para limpá-lo. O "Command + S" será necessário para salvar o código. Porém, aparecerá um erro, pois não podemos utilizar nosso tipo ContaCorrente já atribuindo um valor. Isso porque temos uma variável do tipo ContaCorrente, a contaDaCris. Mas o código não entendeu que o tipo da variável é o mesmo que está sendo passado para new(). Precisamos identificar que se tratam do mesmo tipo.
+
+Para conseguir dizer que contaDaCris aponta para uma ContaCorrente, colocaremos um asterisco na frente. Teremos var contaDaCris *ContaCorrente.
+
+Agora não teremos mais nenhum erro. Limparemos o terminal e vamos roda de novo. Veremos no terminal:
+
+&{Cris 0 0 0}
+
+Esse resultado se deve a só termos atribuído o nome, então os outros valores tomaram a forma de zero velho. Atribuiremos agora os demais valores.
+
+Mas por que o "&" e por que temos que apontar para ContaCorrente com asterisco? Nas outras alternativas de uso da struct, o código entendia que que
+ a conta corrente do cliente apontava para um tipo, uma estrutura de conta.
+
+Exemplificaremos o que está acontecendo. Vamos imaginar que um edifício tem uma cobertura super bonita, apertamentos maiores no penúltimo e no último 
+andar, e o térreo e o primeiro andar têm todos os apartamentos do mesmo tamanho.
+
+Para cada apartamento há uma caixa de correio que os identifica. As correspondências que chegam para cada apartamento ficam nas respectivas caixas de correio. 
+Eles possuírem tamanhos diferentes é um ponto importante.
+
+Isso quer dizer que nossas caixas de correio são como os nossos ponteiros ou referências. Cada caixa, independentemente do tamanho do apartamento, 
+apontará para o mesmo lugar se tratando do edifício. Os ponteiros também serão todos iguais. Porém, quando falamos de cada apartamento, os ponteiros apontarão para lugares diferentes do prédio.
+
+Para concluir, as caixas do correio serão nossos ponteiros. O edifício será a memória da nossa aplicação, o local em que podemos armazenar informações.
+ Cada apartamento corresponde a um tipo a ser armazenado.
+
+Então existem tipos menores, os relacionados com os apartamentos do térreo e primeiro andar, onde não precisamos de muito espaço para o armazenamento. 
+O segundo andar será semelhante.
+
+No terceiro andar já teremos um apartamento maior, que permite guardar elementos maiores. O ponteiro, no entanto, será do mesmo tamanho. 
+Essa é apenas uma reflexão simples do que ocorre no nosso desenvolvimento.
+
+Então a contaDaCris precisa apontar para ContaCorrente. O código em Go não entenderá corretamente se tirarmos e asterisco e salvarmos a 
+aplicação, pois ficará sem entender para onde new está apontando, se é a conta corrente da Cris ou uma nova conta. A partir do momento em que o ponteiro é colocado, é como se alocássemos um espaço e disséssemos que a caixa do correio aponta para um apartamento em particular.
+
+A caixa de correio contaDaCris apontará para o apartamento ContaCorrente . Podemos criar cada um dos campos da conta corrente de Cris de
+ acordo com a struct. Criaremos o saldo nesse momento, com contadaCris.saldo = 500.
+
+O último detalhe será o "&" que aparece no terminal quando fazemos a impressão do que temos. Isso porque seguindo o mesmo raciocínio do nosso exemplo,
+ &{Cris 0 0 500} indica que os campos são um conteúdo que está dentro do apartamento. Mas "&" não é interessante para nós, somente o conteúdo.
+
+Por isso, colocaremos o asterisco em contaDaCris também na hora da impressão.
+
+var contaDaCris *ContaCorrente
+contaDaCris = new(ContaCorrente)
+contaDaCris.titular = "Cris"
+contaDaCris.saldo = 500
+
+
+fmt.Println(*contaDaCris)COPIAR CÓDIGO
+Se limparmos o terminal e rodarmos de novo, o resultado será igual ao que teríamos usando as outras opções para structs, {Cris 0 0 500} somente.
+
+Então, por debaixo dos panos ocorrerá todo o processo referente aos ponteiros e à alocação da memória nos outros códigos também.
+
+A pergunta que fica é: com qual forma de usar structs é mais fácil trabalhar. Podemos usar a técnica de escrever
+ contaDoGuilherme := ContaCorrente{titular: "Guilherme", saldo: 125.5} quando provavelmente não vamos precisar sempre de todos os campos preenchidos.
+
+A segunda forma, contaDaBruna := ContaCorrente{"Bruna", 222, 111222, 200} é mais indicada quando todos os campos serão utilizáveis.
+ Esses serão os modos mais compatíveis com o Go.
+
+Mas o terceiro modo também é importante sabermos usar, pois se precisar lidar com um projeto com esse modelo, saberá do que se tratam os 
+ponteiros e como manipular esses dados.
+
+Essa foi uma aula para termos ideia de que existe essa alternativa e como utilizá-la, mas nos próximos momentos trabalharemos sempre com o primeiro
+ ou o segundo jeitos de lidar com structs. `
+
+
+ package main
+
+import (
+    "fmt"
+)
+
+func SemParametro() string {
+    return "Exemplo de função sem parâmetro!"
+}
+
+func UmParametro(texto string) string {
+    return texto
+}
+
+func DoisParametros(texto string, numero int) (string, int) {
+    return texto, numero
+}
+
+func main() {
+    fmt.Println(SemParametro())
+    fmt.Println(UmParametro("Exemplo de função com um parâmetro"))
+    fmt.Println(DoisParametros("Passando dois parâmetros: essa string e o número", 10))
+}
